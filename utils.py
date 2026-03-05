@@ -1,0 +1,1 @@
+# Fonctions d'aide (ex: le lanceur de dés, les pauses)
