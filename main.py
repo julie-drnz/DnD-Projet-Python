@@ -2,22 +2,22 @@ import os
 import time
 import random
 
-# IMPORTATION DES DONNÉES DU JOUEU
+# IMPORTATION DES DONNEES
 from data import couleurs, descriptions, zones, RESET, LISTE_HEROS, LISTE_MONSTRES
 
 def afficher_titre():
     print("="*50)
-    print("           L'ÉCHIQUIER DE L'ORACLE ")
+    print("           L'ECHIQUIER DE L'ORACLE ")
     print("="*50)
 
 def menu_principal():
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         afficher_titre()
-        print("\nBienvenue, Maître du Jeu.")
-        print("1. ⚔️  Jouer (Lancer un combat)")
-        print("2. 🏛️  Explorer (Les visions de l'Oracle)")
-        print("3. 🚪  Quitter")
+        print("\nBienvenue, Maitre du Jeu.")
+        print("1. Jouer (Lancer un combat)")
+        print("2. Explorer (Les visions de l'Oracle)")
+        print("3. Quitter")
         
         choix = input("\nQue souhaitez-vous faire ? (1-3) : ")
 
@@ -26,64 +26,54 @@ def menu_principal():
         elif choix == "2":
             explorer_monde()
         elif choix == "3":
-            print("\nL'Oracle ferme ses yeux... À bientôt, mortel.")
+            print("\nL'Oracle ferme ses yeux... A bientot, mortel.")
             break
         else:
-            print("\n Choix invalide.")
+            print("\nChoix invalide.")
             time.sleep(1.5)
 
 def lancer_jeu():
     os.system('cls' if os.name == 'nt' else 'clear')
-    print("--- ⚔️ PRÉPARATION DU COMBAT ⚔️ ---")
+    print("--- PREPARATION DU COMBAT ---")
     
-    # Étape 1 : Demander le nombre de héros
-    nb_h = input("\nCombien de héros l'Oracle voit-il ? : ")
-    
-    # Étape 2 : Demander le nombre de monstres
-    nb_m = input("Combien de créatures s'opposent à eux ? : ")
+    nb_h = input("\nCombien de heros l'Oracle voit-il ? : ")
+    nb_m = input("Combien de creatures s'opposent a eux ? : ")
 
-    print(f"\nDestin scellé : {nb_h} héros contre {nb_m} monstres.")
+    print(f"\nDestin scelle : {nb_h} heros contre {nb_m} monstres.")
+    print("\n[En attente des noms des personnages dans data.py...]")
     
-    # Note : La sélection précise des noms se fera quand Joueur 1 
-    # aura rempli LISTE_HEROS dans data.py
-    print("\n[En attente des noms des personnages pour la sélection...]")
-    
-    input("\nAppuyez sur Entrée pour revenir au menu...")
+    input("\nAppuyez sur Entree pour revenir au menu...")
 
 def explorer_monde():
     os.system('cls' if os.name == 'nt' else 'clear')
-    print("--- 🏛️ LES VISIONS DE L'ORACLE ---")
+    print("--- LES VISIONS DE L'ORACLE ---")
 
-    # Sélection aléatoire de 3 zones parmi les 20 de data.py
+    # Tirage aléatoire de 3 zones
     zones_affichees = random.sample(zones, 3)
 
     print("\nL'Oracle vous propose trois destinations :")
     for i, z in enumerate(zones_affichees):
         print(f"{i+1} - {z}")
 
-    choix = input("\nOù souhaitez-vous envoyer vos héros ? (1, 2 ou 3) : ")
+    choix = input("\nVotre choix (1, 2 ou 3) : ")
 
     if choix in ["1", "2", "3"]:
-        # On récupère la zone choisie
         zone_choisie = zones_affichees[int(choix) - 1]
-        
-        # On récupère la couleur et la description associées dans data.py
-        couleur_zone = couleurs[zone_choisie]
-        description_zone = descriptions[zone_choisie]
+        couleur = couleurs[zone_choisie]
+        texte = descriptions[zone_choisie]
 
         os.system('cls' if os.name == 'nt' else 'clear')
         print("===================================")
-        print(f"{couleur_zone}📍 {zone_choisie.upper()}{RESET}")
+        print(f"{couleur}ZONE : {zone_choisie.upper()}{RESET}")
         print("-" * 35)
-        print(f"{couleur_zone}{description_zone}{RESET}")
+        print(f"{couleur}{texte}{RESET}")
         print("===================================\n")
         
-        print("Trois coffres antiques apparaissent devant toi...")
-        print("1 - Coffre ancien | 2 - Coffre mystérieux | 3 - Coffre doré")
-        
-        input("\nAppuyez sur Entrée pour ouvrir le coffre et repartir...")
+        print("Trois coffres antiques apparaissent...")
+        print("1 - Coffre ancien | 2 - Coffre mysterieux | 3 - Coffre dore")
+        input("\nAppuyez sur Entree pour revenir au menu...")
     else:
-        print("\n❌ Choix invalide. L'Oracle perd sa vision.")
+        print("\nChoix invalide.")
         time.sleep(1.5)
 
 if __name__ == "__main__":
