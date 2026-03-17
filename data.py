@@ -1,6 +1,57 @@
 # Listes d'objets : vos catalogues d'armes et de monstres
 import random
 
+class Entities:
+    def __init__(self, nom, pv,atk_range, sort_range, nom_sort):
+        self.nom = nom
+        self.pv = pv
+        self.pv_max = pv
+        self.atk_range = atk_range
+        self.sort_range = sort_range
+        self.nom_sort = nom_sort
+
+personnages = {
+    "achille": Entities(
+        nom="Achille",
+        pv_max=150,
+        atk_range=(12, 18),
+        sort_range=(20, 30),
+        nom_sort="Colère du Péléide"
+    ),
+    "artemis": Entities(
+        nom="Artémis",
+        pv_max=80,
+        atk_range=(15, 35),
+        sort_range=(40, 60),
+        nom_sort="Flèche d'Argent"
+    ),
+    "asclepios": Entities(
+        nom="Asclépios",
+        pv_max=110,
+        atk_range=(8,12),
+        sort_range=(30, 50),
+        nom_sort="Souffle de Vie"
+    )
+}
+
+
+creatures = {
+    "minotaure": Entities(
+        nom="Le Minotaure",
+        pv_max=180,
+        atk_range=(10, 15),
+        sort_range=(15, 25),
+        nom_sort="Frénésie"
+    ),
+    "meduse": Entities(
+        nom="Méduse",
+        pv_max=90,
+        atk_range=(5, 15),
+        sort_range=(45, 70),
+        nom_sort="Regard de Pierre"
+    )
+}
+
 RESET = "\033[0m"
 
 couleurs = {
