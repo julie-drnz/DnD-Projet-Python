@@ -1,25 +1,23 @@
-# # Le fichier à lancer (Boucle de jeu principale)
-
 import os
 import time
-# Importations des autres fichiers (à créer par tes camarades)
-# from models import Heros, Monstre
-# from actions import combat_tour_par_tour
-# from utils import effacer_ecran
+import random
+
+# IMPORTATION DES DONNEES
+from data import couleurs, descriptions, zones, RESET, LISTE_HEROS, LISTE_MONSTRES
 
 def afficher_titre():
     print("="*50)
-    print("           L'ÉCHIQUIER DE L'ORACLE ")
+    print("           L'ECHIQUIER DE L'ORACLE ")
     print("="*50)
 
 def menu_principal():
     while True:
-        # effacer_ecran() # Utilise la fonction de ton camarade Joueur 1/4 ici
+        os.system('cls' if os.name == 'nt' else 'clear')
         afficher_titre()
-        print("\nBienvenue, Maître du Jeu.")
-        print("1.   Jouer")
-        print("2.   Explorer")
-        print("3.   Quitter")
+        print("\nBienvenue, Maitre du Jeu.")
+        print("1. Jouer (Lancer un combat)")
+        print("2. Explorer (Les visions de l'Oracle)")
+        print("3. Quitter")
         
         choix = input("\nQue souhaitez-vous faire ? (1-3) : ")
 
@@ -28,28 +26,55 @@ def menu_principal():
         elif choix == "2":
             explorer_monde()
         elif choix == "3":
-            print("Fermeture du temple... À bientôt, mortel.")
+            print("\nL'Oracle ferme ses yeux... A bientot, mortel.")
             break
         else:
-            print("❌ Choix invalide.")
+            print("\nChoix invalide.")
             time.sleep(1.5)
 
 def lancer_jeu():
-    print("\n--- PRÉPARATION DU COMBAT ---")
-    # C'est ici que tu appelleras les fonctions pour :
-    # 1. Choisir les héros (Achille, Hercule...)
-    # 2. Choisir les monstres (Minotaure, Méduse...)
-    # 3. Lancer la boucle de combat
-    input("\nAppuyez sur Entrée pour revenir au menu...")
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("--- PREPARATION DU COMBAT ---")
+    
+    nb_h = input("\nCombien de heros l'Oracle voit-il ? : ")
+    nb_m = input("Combien de creatures s'opposent a eux ? : ")
+
+    print(f"\nDestin scelle : {nb_h} heros contre {nb_m} monstres.")
+    print("\n[En attente des noms des personnages dans data.py...]")
+    
+    input("\nAppuyez sur Entree pour revenir au menu...")
 
 def explorer_monde():
-    print("\n--- EXPLORATION DES TERRES GRECQUES ---")
-    print("1. Le Mont Olympe")
-    print("2. Les Enfers d'Hadès")
-    print("3. La Mer Égée")
-    # Logique d'exploration à étoffer plus tard
-    input("\nAppuyez sur Entrée pour revenir au menu...")
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("--- LES VISIONS DE L'ORACLE ---")
 
-# Lancement du programme
+    # Tirage aléatoire de 3 zones
+    zones_affichees = random.sample(zones, 3)
+
+    print("\nL'Oracle vous propose trois destinations :")
+    for i, z in enumerate(zones_affichees):
+        print(f"{i+1} - {z}")
+
+    choix = input("\nVotre choix (1, 2 ou 3) : ")
+
+    if choix in ["1", "2", "3"]:
+        zone_choisie = zones_affichees[int(choix) - 1]
+        couleur = couleurs[zone_choisie]
+        texte = descriptions[zone_choisie]
+
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("===================================")
+        print(f"{couleur}ZONE : {zone_choisie.upper()}{RESET}")
+        print("-" * 35)
+        print(f"{couleur}{texte}{RESET}")
+        print("===================================\n")
+        
+        print("Trois coffres antiques apparaissent...")
+        print("1 - Coffre ancien | 2 - Coffre mysterieux | 3 - Coffre dore")
+        input("\nAppuyez sur Entree pour revenir au menu...")
+    else:
+        print("\nChoix invalide.")
+        time.sleep(1.5)
+
 if __name__ == "__main__":
     menu_principal()
