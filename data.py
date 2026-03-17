@@ -128,5 +128,54 @@ Coffre = {
     "Coffre doré"
 }
 
+class Objects:
+    def __init__(self, nom, description):
+        self.nom = nom
+        self.description = description
 
-        
+objets = {
+    "Flèches d'Artémis": Objects(
+        nom="Flèches d'Artémis",
+        description="Des flèches enchantées par la déesse de la chasse, capables de percer n'importe quelle armure."
+    ),
+    "Épée d'Arès": Objects(
+        nom="Épée d'Arès",
+        description="Une épée légendaire forgée par Héphaïstos, symbole de la puissance de la guerre."
+    ),
+
+    "Oeil de Cyclope": Objects(
+        nom="Oeil de Cyclope",
+        description="Un œil unique d'un Cyclope, réputé pour conférer une force surhumaine à celui qui le possède."
+    ),
+    "Ambroisie": Objects(
+        nom="Ambroisie",
+        description="Un nectar divin qui confère l'immortalité aux dieux et aux héros."
+    ),
+    "Plume d'Icar": Objects(
+        nom="Plume d'Icar", 
+        description="Une plume provenant des ailes d'Icar, une des responsables de sa chute. N'essayez pas de l'utiliser."
+    ),
+    "Fruits d'Héra": Objects(
+        nom="Fruits d'Héra",
+        description="Des fruits rares cultivés dans le jardin d'Héra, réputés pour leur capacité à restaurer la santé et la vitalité."
+    ),
+    "Vent en bouteille": Objects(
+        nom="Vent en bouteille",
+        description="Un vent capturé dans une bouteille, capable de propulser son porteur à grande vitesse ou de créer une tempête dévastatrice."
+    ),
+    "Sang de chimère": Objects(
+        nom="Sang de chimère",
+        description="Le sang d'une chimère, une créature mythique composée de plusieurs animaux."
+    )
+
+}
+
+objects_disponibles = {
+        "Commun":["Oeil de Cyclope", "Vent en bouteille"],
+        "Rare":["Ambroisie","Sang de chimère","Fruits d'Héra"],
+        "Légendaire":["Flèches d'Artémis", "Épée d'Arès","Plume d'Icar"]
+    }
+    
+#à copier autre part je pense, genre dans le truc de loot
+raretes = ["Commun", "Rare", "Légendaire"]
+probabilites = [60, 30,10]
