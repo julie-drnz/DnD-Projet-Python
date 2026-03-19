@@ -8,28 +8,30 @@ class Entities:
         self.atk_range = atk_range
         self.sort_range = sort_range
         self.nom_sort = nom_sort
-        self.sorts_max = 2
-        self.sorts_restants = 2
+        self.sorts_max = 5
+        self.sorts_restants = 5
+        self.bonus_degats = 0
+        self.duree_bonus = 0
 
 personnages = {
     "achille": Entities(
         nom="Achille",
         pv_max=150,
-        atk_range=(12, 18),
-        sort_range=(20, 30),
+        atk_range=(28, 34),
+        sort_range=(0, 0),
         nom_sort="Colère du Péléide"
     ),
     "artemis": Entities(
         nom="Artémis",
         pv_max=80,
-        atk_range=(15, 35),
-        sort_range=(40, 80),
+        atk_range=(30, 52),
+        sort_range=(10, 90),
         nom_sort="Flèche d'Argent"
     ),
     "asclepios": Entities(
         nom="Asclépios",
         pv_max=110,
-        atk_range=(8,12),
+        atk_range=(8,16),
         sort_range=(30, 50),
         nom_sort="Souffle de Vie"
     )
@@ -39,7 +41,7 @@ personnages = {
 creatures = {
     "minotaure": Entities(
         nom="Le Minotaure",
-        pv_max=180,
+        pv_max=120,
         atk_range=(10, 15),
         sort_range=(15, 25),
         nom_sort="Frénésie"
@@ -48,8 +50,15 @@ creatures = {
         nom="Méduse",
         pv_max=90,
         atk_range=(5, 15),
-        sort_range=(45, 70),
+        sort_range=(45, 65),
         nom_sort="Regard de Pierre"
+    ),
+    "Polypheme": Entities(
+        nom="Polypheme",
+        pv_max=250,
+        atk_range=(20, 30),
+        sort_range=(30, 40),
+        nom_sort="Frappe violente"
     )
 }
 

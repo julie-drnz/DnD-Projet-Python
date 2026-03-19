@@ -34,8 +34,8 @@ Pour exécuter ce projet, vous aurez besoin de :
 
 ### 1. Système de Combat (Jouer)
 - Implémentation du rôle d'un Maître du Jeu (MJ) qui gère les rencontres.
-- Préparation des combats en sélectionnant combien de héros et de monstres vont s'affronter.
-- Les entités du jeu (Héros et Monstres) mythologiques tels qu'Achille, Artémis, Le Minotaure ou Méduse (définis dans `data.py`) possèdent des statistiques propres (Points de vie, plages de dégâts d'attaque classique, sorts spéciaux).
+- Préparation des combats en sélectionnant deux héros et choix de monstre aléatoire.
+- Les entités du jeu (Héros et Monstres) mythologiques tels qu'Achille, Artémis, Le Minotaure, Méduse ou Polypheme (définis dans `data.py`) possèdent des statistiques propres (Points de vie, plages de dégâts d'attaque classique, sorts spéciaux, dégats de zone, buff, soin).
 
 ### 2. Exploration (Fonctionnalité Supplémentaire)
 - **Les visions de l'Oracle :** Une fonctionnalité d'exploration textuelle ajoutée indépendamment des prérequis de base.
@@ -47,9 +47,7 @@ Pour exécuter ce projet, vous aurez besoin de :
 Le projet utilise un découpage modulaire respectant les concepts fondamentaux de la Programmation Orientée Objet :
 - `main.py` : Point d'entrée du programme et boucle principale du jeu (Menu REPL).
 - `data.py` : Base de données instanciant les différentes `Entities` (personnages, créatures) et `Objects` (armes, loot). Contient également les listes de zones et de raretés.
-- `models.py` : Fichier destiné à contenir la logique de modèle (Classe mère `Creature` et les classes filles `Heros` et `Monstre` avec leurs constructeurs spécifiques).
 - `actions.py` : Logique de combat, gestion des lancers de dés (d4, d6, d8, d20...) et fonctions de résolution des attaques physiques et magiques.
-- `utils.py` : Fichier aux fonctions utilitaires diverses.
 
 ## 🎮 Jouabilité
 Plongez dans les mythes grecs ! Incarnez des figures de légende et affrontez les monstres les plus redoutables de l'histoire antique. Le Maître du Jeu utilise cette interface console pour gérer le flot du récit et lancer les dés pour dicter le destin des joueurs.
