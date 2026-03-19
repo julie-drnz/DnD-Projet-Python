@@ -1,7 +1,7 @@
 # 🎲 L'Échiquier de l'Oracle - Projet POO Python (DnD)
 
 ## 📜 Description du Projet
-Ce projet est un système de jeu de combat RPG simplifié inspiré de l'univers de Donjons & Dragons et de la mythologie grecque. Il a été développé dans le cadre d'un projet académique visant à mettre en pratique les concepts de Programmation Orientée Objet (POO) en Python, notamment les classes, l'héritage et le polymorphisme.
+Ce projet est un système de jeu de combat RPG simplifié inspiré de l'univers de Donjons & Dragons et de la mythologie grecque. Il a été développé dans le cadre d'un projet académique visant à mettre en pratique les concepts de Programmation Orientée Objet (POO) en Python, avec une attention particulière portée sur la création de classes (`Entities`, `Objects`), l'encapsulation des données et la séparation modulaire des responsabilités.
 
 ## 👥 L'Équipe
 Ce projet a été réalisé par un groupe de 4 personnes :
@@ -34,7 +34,7 @@ Pour exécuter ce projet, vous aurez besoin de :
 
 ### 1. Système de Combat (Jouer)
 - Implémentation du rôle d'un Maître du Jeu (MJ) qui gère les rencontres.
-- Préparation des combats en sélectionnant combien de héros et de monstres vont s'affronter.
+- Préparation des combats : le joueur sélectionne son héros parmi une liste, puis l'Oracle invoque aléatoirement un monstre pour un affrontement en 1 contre 1 au tour par tour.
 - Les entités du jeu (Héros et Monstres) mythologiques tels qu'Achille, Artémis, Le Minotaure ou Méduse (définis dans `data.py`) possèdent des statistiques propres (Points de vie, plages de dégâts d'attaque classique, sorts spéciaux).
 
 ### 2. Exploration (Fonctionnalité Supplémentaire)
@@ -46,10 +46,8 @@ Pour exécuter ce projet, vous aurez besoin de :
 ## 🏗️ Architecture Technique (POO)
 Le projet utilise un découpage modulaire respectant les concepts fondamentaux de la Programmation Orientée Objet :
 - `main.py` : Point d'entrée du programme et boucle principale du jeu (Menu REPL).
-- `data.py` : Base de données instanciant les différentes `Entities` (personnages, créatures) et `Objects` (armes, loot). Contient également les listes de zones et de raretés.
-- `models.py` : Fichier destiné à contenir la logique de modèle (Classe mère `Creature` et les classes filles `Heros` et `Monstre` avec leurs constructeurs spécifiques).
+- `data.py` : Fichier contenant les classes du jeu (`Entities`, `Objects`) et instanciant la base de données (les personnages et créatures utilisent la même classe `Entities`). Contient également les listes de zones et de raretés.
 - `actions.py` : Logique de combat, gestion des lancers de dés (d4, d6, d8, d20...) et fonctions de résolution des attaques physiques et magiques.
-- `utils.py` : Fichier aux fonctions utilitaires diverses.
 
 ## 🎮 Jouabilité
 Plongez dans les mythes grecs ! Incarnez des figures de légende et affrontez les monstres les plus redoutables de l'histoire antique. Le Maître du Jeu utilise cette interface console pour gérer le flot du récit et lancer les dés pour dicter le destin des joueurs.
