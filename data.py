@@ -1,11 +1,10 @@
-# Listes d'objets : vos catalogues d'armes et de monstres
 import random
 
 class Entities:
-    def __init__(self, nom, pv,atk_range, sort_range, nom_sort):
+    def __init__(self, nom, pv_max, atk_range, sort_range, nom_sort):
         self.nom = nom
-        self.pv = pv
-        self.pv_max = pv
+        self.pv = pv_max
+        self.pv_max = pv_max
         self.atk_range = atk_range
         self.sort_range = sort_range
         self.nom_sort = nom_sort
