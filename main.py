@@ -17,19 +17,21 @@ def menu_principal():
         print("1. Jouer (Lancer un combat)")
         print("2. Explorer (Les visions de l'Oracle)")
         print("3. Quitter")
+        
         choix = input("\nQue souhaitez-vous faire ? (1-3) : ")
+
         if choix == "1":
             lancer_jeu()
         elif choix == "2":
             explorer_monde()
         elif choix == "3":
-            print("\nL'Oracle ferme ses yeux... A bientot.")
+            print("\nL'Oracle ferme ses yeux... A bientot, mortel.")
             break
         else:
             print("\nChoix invalide.")
             time.sleep(1.5)
 
-def lancer_jeu():
+def choisir_personnage():
     os.system('cls' if os.name == 'nt' else 'clear')
     print("--- PREPARATION DU COMBAT ---")
     print("\nL'Oracle vous présente les héros :")
@@ -40,46 +42,88 @@ def lancer_jeu():
     while not (choix_heros.isdigit() and 1 <= int(choix_heros) <= len(liste_heros)):
         choix_heros = input("Choix invalide. Entrez le numéro de votre héros : ")
     heros = liste_heros[int(choix_heros) - 1]
-    print("\nL'Oracle invoque un monstre en adversaire...")
-    key_monstre = random.choice(list(data.creatures.keys()))
-    monstre = data.creatures[key_monstre]
-    print(f"\n{monstre.nom} apparait avec ses {monstre.pv_max} PV !")
-    time.sleep(2)
-    os.system('cls' if os.name == 'nt' else 'clear')
-    print(f"\n--- LE COMBAT COMMENCE : {heros.nom} VS {monstre.nom} ! ---")
-    while heros.pv > 0 and monstre.pv > 0:
-        print("\n" + "="*40)
-        actions.afficher_stat(heros)
-        actions.afficher_stat(monstre)
-        print("="*40)
-        print("\nC'est votre tour. Actions disponibles :")
-        print("1. Attaque physique")
-        print(f"2. Sort : {heros.nom_sort}")
-        action = input("Votre action (1-2) : ")
-        print("")
-        if action == "1":
-            actions.attaque_physique(heros, monstre)
-        elif action == "2":
-            actions.sort(heros, monstre)
+    return heros
+
+def lancer_jeu():
+    heros = choisir_personnage()
+    while True:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("--- PREPARATION DU COMBAT ---")
+        print("\nL'Oracle invoque un monstre en adversaire...")
+        key_monstre = random.choice(list(data.creatures.keys()))
+        monstre = data.creatures[key_monstre]
+        print(f"\n{monstre.nom} apparait avec ses {monstre.pv_max} PV !")
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(f"\n--- LE COMBAT COMMENCE : {heros.nom} VS {monstre.nom} ! ---")
+        heros.sorts_restants = heros.sorts_max
+        monstre.sorts_restants = monstre.sorts_max
+        while heros.pv > 0 and monstre.pv > 0:
+            print("\n" + "="*40)
+            actions.afficher_stat(heros)
+            actions.afficher_stat(monstre)
+            print("="*40)
+            print("\nC'est votre tour. Actions disponibles :")
+            print("1. Attaque physique")
+            if heros.sorts_restants > 0:
+                print(f"2. Sort : {heros.nom_sort} ({heros.sorts_restants} restant(s))")
+            else:
+                print(f"2. Sort : {heros.nom_sort} (Épuisé)")
+                
+            action = input("Votre action (1-2) : ")
+            print("")
+            if action == "1":
+                actions.attaque_physique(heros, monstre)
+            elif action == "2":
+                if heros.sorts_restants > 0:
+                    actions.sort(heros, monstre)
+                    heros.sorts_restants -= 1
+                else:
+                    print(f"Vous n'avez plus d'énergie pour lancer {heros.nom_sort} ! Vous perdez votre tour...")
+            else:
+                print(f"{heros.nom} hésite et manque son attaque !")
+            if monstre.pv <= 0:
+                print(f"\nVICTOIRE ! {monstre.nom} a été terrassé par {heros.nom}.")
+                break 
+            print("\nTour de l'ennemi...")
+            time.sleep(1.5)
+            if random.choice([True, False]) and monstre.sorts_restants > 0:
+                actions.sort(monstre, heros)
+                monstre.sorts_restants -= 1
+            else:
+                actions.attaque_physique(monstre, heros)   
+            if heros.pv <= 0:
+                print(f"\nDÉFAITE... {heros.nom} a succombé face à {monstre.nom}.")
+                break  
+            time.sleep(1.5)
+            
+        est_mort = heros.pv <= 0
+        
+        heros.pv = heros.pv_max
+        monstre.pv = monstre.pv_max
+        heros.sorts_restants = heros.sorts_max
+        monstre.sorts_restants = monstre.sorts_max
+        if est_mort:
+            print("\nVotre aventure s'arrête ici.")
+            input("Appuyez sur Entrée pour revenir au menu principal...")
+            break
+        print("\nLe combat est terminé.")
+        print("1. Combattre un nouvel adversaire avec ce héros")
+        print("2. Partir explorer avec ce héros")
+        print("3. Revenir au menu principal")
+        
+        while True:
+            choix_fin = input("Que voulez-vous faire ? (1-3) : ")
+            if choix_fin in ["1", "2", "3"]:
+                break 
+        if choix_fin == "1":
+            continue
+        elif choix_fin == "2":
+            explorer_monde()
+            break
         else:
-            print(f"{heros.nom} hésite et manque son attaque !")
-        if monstre.pv <= 0:
-            print(f"\nVICTOIRE ! {monstre.nom} a été terrassé par {heros.nom}.")
-            break 
-        print("\nTour de l'ennemi...")
-        time.sleep(1.5)
-        if random.choice([True, False]):
-            actions.attaque_physique(monstre, heros)
-        else:
-            actions.sort(monstre, heros)   
-        if heros.pv <= 0:
-            print(f"\nDÉFAITE... {heros.nom} a succombé face à {monstre.nom}.")
-            break  
-        time.sleep(1.5)
-    heros.pv = heros.pv_max
-    monstre.pv = monstre.pv_max
-    
-    input("\nAppuyez sur Entree pour revenir au menu...")
+            break
+
 
 def explorer_monde():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -88,7 +132,6 @@ def explorer_monde():
     print("\nL'Oracle vous propose trois destinations :")
     for i, z in enumerate(zones_affichees):
         print(f"{i+1} - {z}")
-
     choix = input("\nVotre choix (1, 2 ou 3) : ")
     if choix in ["1", "2", "3"]:
         zone_choisie = zones_affichees[int(choix) - 1]

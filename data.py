@@ -8,6 +8,8 @@ class Entities:
         self.atk_range = atk_range
         self.sort_range = sort_range
         self.nom_sort = nom_sort
+        self.sorts_max = 2
+        self.sorts_restants = 2
 
 personnages = {
     "achille": Entities(
@@ -21,7 +23,7 @@ personnages = {
         nom="Artémis",
         pv_max=80,
         atk_range=(15, 35),
-        sort_range=(40, 60),
+        sort_range=(40, 80),
         nom_sort="Flèche d'Argent"
     ),
     "asclepios": Entities(
