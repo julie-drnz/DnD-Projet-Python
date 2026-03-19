@@ -1,7 +1,7 @@
 # 🎲 L'Échiquier de l'Oracle - Projet POO Python (DnD)
 
 ## 📜 Description du Projet
-Ce projet est un système de jeu de combat RPG simplifié inspiré de l'univers de Donjons & Dragons et de la mythologie grecque. Il a été développé dans le cadre d'un projet académique visant à mettre en pratique les concepts de Programmation Orientée Objet (POO) en Python, notamment les classes, l'héritage et le polymorphisme.
+Ce projet est un système de jeu de combat RPG simplifié inspiré de l'univers de Donjons & Dragons et de la mythologie grecque. Il a été développé dans le cadre d'un projet académique visant à mettre en pratique les concepts de Programmation Orientée Objet (POO) en Python, avec une attention particulière portée sur la création de classes (`Entities`, `Objects`), l'encapsulation des données et la séparation modulaire des responsabilités.
 
 ## 👥 L'Équipe
 Ce projet a été réalisé par un groupe de 4 personnes :
@@ -36,6 +36,7 @@ Pour exécuter ce projet, vous aurez besoin de :
 - Implémentation du rôle d'un Maître du Jeu (MJ) qui gère les rencontres.
 - Préparation des combats en sélectionnant deux héros et choix de monstre aléatoire.
 - Les entités du jeu (Héros et Monstres) mythologiques tels qu'Achille, Artémis, Le Minotaure, Méduse ou Polypheme (définis dans `data.py`) possèdent des statistiques propres (Points de vie, plages de dégâts d'attaque classique, sorts spéciaux, dégats de zone, buff, soin).
+
 
 ### 2. Exploration (Fonctionnalité Supplémentaire)
 - **Les visions de l'Oracle :** Une fonctionnalité d'exploration textuelle ajoutée indépendamment des prérequis de base.
