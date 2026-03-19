@@ -1,1 +1,0 @@
-# Contient les classes (Creature, Heros, Monstre)
