@@ -1,4 +1,5 @@
 import random
+from data import creatures, ajouter_objet_inventaire, generer_loot
 
 def d4():
     return random.randint(1, 4)
@@ -26,13 +27,27 @@ DES_PERSONNAGE = {
     "méduse": {"physique": d10, "sort": d20},
     "polypheme": {"physique": d10, "sort": [d8, d6]}
 }
+
 def lancer_des(des):
     if isinstance(des, list):
         return sum(d() for d in des)
     return des()
 
+
+def est_une_creature(entity):
+    noms_creatures = [creature.nom.lower() for creature in creatures.values()]
+    return entity.nom.lower() in noms_creatures
+
+
+def donner_loot_si_creature_morte(cible):
+    if cible.pv <= 0 and est_une_creature(cible) and not cible.loot_deja_donne:
+        objet, rarete = generer_loot()
+        ajouter_objet_inventaire(objet, rarete)
+        cible.loot_deja_donne = True
+        print(f"🎁 {cible.nom} a laissé tomber : {objet} ({rarete})")
+
+
 def attaque_physique(atk_entity, cible):
-    """Attaque physique"""
     base = atk_entity.atk_range[0]
     des = DES_PERSONNAGE[atk_entity.nom.lower()]["physique"]
     de = lancer_des(des)
@@ -43,9 +58,10 @@ def attaque_physique(atk_entity, cible):
     print(f"{atk_entity.nom} attaque {cible.nom} et inflige {degats} dégâts (Base: {base} + Dé: {de}{bonus_str})")
     if cible.pv <= 0:
         print(f"{cible.nom} est mort")
+        donner_loot_si_creature_morte(cible)
+
 
 def sort(atk_entity, cible):
-    """Sort"""
     base = atk_entity.sort_range[0]
     des = DES_PERSONNAGE[atk_entity.nom.lower()]["sort"]
     de = lancer_des(des)
@@ -74,5 +90,8 @@ def sort(atk_entity, cible):
             print(f"{atk_entity.nom} utilise {atk_entity.nom_sort} sur {c.nom} et inflige {degats} dégâts (Base: {base} + Dé: {de}{bonus_str})")
             if c.pv <= 0:
                 print(f"{c.nom} est mort")
+                donner_loot_si_creature_morte(c)
+
+
 def afficher_stat(entity):
     print(f"{entity.nom} : {entity.pv}/{entity.pv_max} pv")

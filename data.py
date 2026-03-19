@@ -1,4 +1,6 @@
 import random
+import json
+import os
 
 class Entities:
     def __init__(self, nom, pv_max, atk_range, sort_range, nom_sort):
@@ -12,7 +14,8 @@ class Entities:
         self.sorts_restants = 5
         self.bonus_degats = 0
         self.duree_bonus = 0
-
+        self.loot_deja_donne = False  
+        
 personnages = {
     "achille": Entities(
         nom="Achille",
@@ -186,6 +189,61 @@ objects_disponibles = {
         "Légendaire":["Flèches d'Artémis", "Épée d'Arès","Plume d'Icar"]
     }
     
-#à copier autre part je pense, genre dans le truc de loot
+
 raretes = ["Commun", "Rare", "Légendaire"]
 probabilites = [60, 30,10]
+
+FICHIER_INVENTAIRE = "inventory.json"
+
+def initialiser_inventaire():
+    if not os.path.exists(FICHIER_INVENTAIRE):
+        with open(FICHIER_INVENTAIRE, "w", encoding="utf-8") as f:
+            json.dump({"inventaire": []}, f, indent=4, ensure_ascii=False)
+
+
+def charger_inventaire():
+    initialiser_inventaire()
+    with open(FICHIER_INVENTAIRE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def sauvegarder_inventaire(data):
+    with open(FICHIER_INVENTAIRE, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
+
+
+def ajouter_objet_inventaire(nom_objet, rarete):
+    data = charger_inventaire()
+
+    for item in data["inventaire"]:
+        if item["nom"] == nom_objet:
+            item["quantite"] += 1
+            sauvegarder_inventaire(data)
+            return
+
+    data["inventaire"].append({
+        "nom": nom_objet,
+        "rarete": rarete,
+        "quantite": 1
+    })
+    sauvegarder_inventaire(data)
+
+
+def afficher_inventaire():
+    data = charger_inventaire()
+
+    print("\n===== INVENTAIRE =====")
+    if not data["inventaire"]:
+        print("L'inventaire est vide.")
+        return
+
+    for item in data["inventaire"]:
+        print(f"- {item['nom']} ({item['rarete']}) x{item['quantite']}")
+
+
+def generer_loot():
+    rarete = random.choices(raretes, weights=probabilites, k=1)[0]
+    objet = random.choice(objects_disponibles[rarete])
+    return objet, rarete
+
+initialiser_inventaire()
