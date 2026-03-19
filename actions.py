@@ -26,7 +26,7 @@ DES_PERSONNAGE = {
     "méduse": {"physique": d4, "sort": d20}
 }
 def attaque_physique(atk_entity, cible):
-    """Attaque physique avec base aléatoire et dé fixe selon personnage"""
+    """Attaque physique"""
     base = random.randint(atk_entity.atk_range[0], atk_entity.atk_range[1])
     de = DES_PERSONNAGE[atk_entity.nom.lower()]["physique"]()
     degats = base + de
@@ -37,7 +37,7 @@ def attaque_physique(atk_entity, cible):
         print(f"{cible.nom} est mort")
 
 def sort(atk_entity, cible):
-    """Sort spécial avec base aléatoire et dé fixe selon personnage"""
+    """Sort"""
     base = random.randint(atk_entity.sort_range[0], atk_entity.sort_range[1])
     de = DES_PERSONNAGE[atk_entity.nom.lower()]["sort"]()
     degats = base + de
