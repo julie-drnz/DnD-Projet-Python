@@ -5,10 +5,10 @@ Ce projet est un système de jeu de combat RPG simplifié inspiré de l'univers 
 
 ## 👥 L'Équipe
 Ce projet a été réalisé par un groupe de 4 personnes :
-- Membre 1 (à compléter)
-- Membre 2 (à compléter)
-- Membre 3 (à compléter)
-- Membre 4 (à compléter)
+- Adel REDJEMI
+- Julie DI RENZO
+- Nicolas RABIAN
+- Ilian ULLOA
 
 **Planification du projet :**
 - [Lien vers le Trello ou outil de planification] (à compléter)
