@@ -43,6 +43,7 @@ Pour exécuter ce projet, vous aurez besoin de :
 - Permet au joueur sélectionnant cette option de découvrir 3 zones aléatoires (parmi 20 zones mythologiques uniques comme *Le Mont Olympe*, *Les Enfers d'Hadès*, etc.).
 - Affichage dynamique stylisé par des codes couleurs CLI dans le terminal.
 - Découverte de coffres (Ancien, Mystérieux, Doré) censés renfermer des objets variés classés par rareté (Commun, Rare, Légendaire).
+- Système d'inventaire accessible depuis l'accueil, avec tous les objets obtenus lors de l'exploration.
 
 ## 🏗️ Architecture Technique (POO)
 Le projet utilise un découpage modulaire respectant les concepts fondamentaux de la Programmation Orientée Objet :
