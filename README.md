@@ -11,7 +11,7 @@ Ce projet a été réalisé par un groupe de 4 personnes :
 - Ilian ULLOA
 
 **Planification du projet :**
-- [Lien vers le Trello ou outil de planification] (à compléter)
+- https://trello.com/b/6FCdLHUc/projet-transversal-poo
 
 ## 🛠️ Prérequis
 Pour exécuter ce projet, vous aurez besoin de :
