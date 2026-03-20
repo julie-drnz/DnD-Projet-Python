@@ -1,5 +1,5 @@
 import random
-from data import creatures, ajouter_objet_inventaire, generer_loot
+from data import creatures, personnages
 
 def d4():
     return random.randint(1, 4)
@@ -39,14 +39,6 @@ def est_une_creature(entity):
     return entity.nom.lower() in noms_creatures
 
 
-def donner_loot_si_creature_morte(cible):
-    if cible.pv <= 0 and est_une_creature(cible) and not cible.loot_deja_donne:
-        objet, rarete = generer_loot()
-        ajouter_objet_inventaire(objet, rarete)
-        cible.loot_deja_donne = True
-        print(f"🎁 {cible.nom} a laissé tomber : {objet} ({rarete})")
-
-
 def attaque_physique(atk_entity, cible):
     base = atk_entity.atk_range[0]
     des = DES_PERSONNAGE[atk_entity.nom.lower()]["physique"]
@@ -58,7 +50,6 @@ def attaque_physique(atk_entity, cible):
     print(f"{atk_entity.nom} attaque {cible.nom} et inflige {degats} dégâts (Base: {base} + Dé: {de}{bonus_str})")
     if cible.pv <= 0:
         print(f"{cible.nom} est mort")
-        donner_loot_si_creature_morte(cible)
 
 
 def sort(atk_entity, cible):
@@ -90,8 +81,6 @@ def sort(atk_entity, cible):
             print(f"{atk_entity.nom} utilise {atk_entity.nom_sort} sur {c.nom} et inflige {degats} dégâts (Base: {base} + Dé: {de}{bonus_str})")
             if c.pv <= 0:
                 print(f"{c.nom} est mort")
-                donner_loot_si_creature_morte(c)
-
 
 def afficher_stat(entity):
     print(f"{entity.nom} : {entity.pv}/{entity.pv_max} pv")

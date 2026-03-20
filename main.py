@@ -17,15 +17,19 @@ def menu_principal():
         print("\nBienvenue, Maitre du Jeu.")
         print("1. Jouer (Lancer un combat)")
         print("2. Explorer (Les visions de l'Oracle)")
-        print("3. Quitter")
+        print("3. Inventaire")
+        print("4. Quitter")
         
-        choix = input("\nQue souhaitez-vous faire ? (1-3) : ")
+        choix = input("\nQue souhaitez-vous faire ? (1-4) : ")
 
         if choix == "1":
             lancer_jeu()
         elif choix == "2":
             explorer_monde()
         elif choix == "3":
+            data.afficher_inventaire()
+            input("\nAppuyez sur Entrée pour revenir au menu...")
+        elif choix == "4":
             print("\nL'Oracle ferme ses yeux... A bientot, mortel.")
             break
         else:
@@ -208,9 +212,51 @@ def explorer_monde():
         
         print("Trois coffres antiques apparaissent...")
         print("1 - Coffre ancien | 2 - Coffre mysterieux | 3 - Coffre dore")
-        input("\nAppuyez sur Entree pour revenir au menu...")
+        if choix in ["1", "2", "3"]:
+            zone_choisie = zones_affichees[int(choix) - 1]
+            couleur = data.couleurs[zone_choisie]
+            texte = data.descriptions[zone_choisie]
+        
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("==========================================")
+        print(f"{couleur}ZONE : {zone_choisie.upper()}{data.RESET}")
+        print("-" * 35)
+        print(f"{couleur}{texte}{data.RESET}")
+        print("==========================================\n")
+        
+        print("Que voulez-vous faire ?")
+        print("1 - Fouiller les coffres")
+        print("2 - Quitter la zone")
+        
+        choix_action = input("\nVotre choix (1 ou 2) : ")
+        
+        if choix_action == "1":
+            print("\nEn fouillant un peu, vous trouvez 3 coffres...")
+            print("1 - Coffre ancien | 2 - Coffre mysterieux | 3 - Coffre dore")
+            
+            choix_coffre = input("\nQuel coffre ouvrez-vous ? (1, 2 ou 3) : ")
+            
+            if choix_coffre in ["1", "2", "3"]:
+                rarete_gagnee = random.choices(data.raretes, weights=data.probabilites, k=1)[0]
+                liste_objets = data.objects_disponibles[rarete_gagnee]
+                objet_final = random.choice(liste_objets)
+                
+                print(f"Bien joué ! C'est un objet de rareté [{rarete_gagnee}] ! Tu as trouvé **{objet_final}**")
+                data.ajouter_objet_inventaire(objet_final, rarete_gagnee)
+                print("L'objet a été ajouté à votre inventaire.")
+                input("\nAppuyez sur Entrée pour revenir au menu...")
+            else:
+                print("\nChoix de coffre invalide.")
+                time.sleep(1.5)
+        elif choix_action == "2":
+            print("\nVous quittez la zone.")
+            time.sleep(1.5)
+            
     else:
-        print("\nChoix invalide.")
+        print("\nChoix de zone invalide.")
         time.sleep(1.5)
 if __name__ == "__main__":
-    menu_principal()
+    try:
+     menu_principal()
+    except KeyboardInterrupt:
+         print("\nL'Oracle ferme ses yeux... A bientot, mortel.") 
